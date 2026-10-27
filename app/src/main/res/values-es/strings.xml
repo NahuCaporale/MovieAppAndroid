@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cuishle</string>
+    <string name="get_into">Entrar</string>
+    <string name="movies">Peliculas</string>
+    <string name="watchlist">Pendientes</string>
+    <string name="popular">Popular</string>
+    <string name="no_movies_watchlist">No hay peliculas en tu watchlist!</string>
+    <string name="retry">Reintentar</string>
+    <string name="error_popular">Ocurrio un error al obtener las peliculas</string>
+    <string name="error_details">Ocurrio un error al intentar obtener los detalles de la película </string>
+    <string name="search">Buscar pelicula</string>
+    <string name="error_search">Error al buscar pelicula</string>
+    <string name="no_movies_found">No se encontraron peliculas</string>
+    <string name="similar_movies">Peliculas similares</string>
+    <string name="size_movies_watchlist">Peliculas en watchlist:</string>
+
+
+</resources>

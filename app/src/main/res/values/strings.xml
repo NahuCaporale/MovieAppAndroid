@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Cuishle</string>
+    <string name="get_into">Get into!</string>
+    <string name="movies">Movies</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="popular">Popular</string>
+    <string name="no_movies_watchlist">No movies in watchlist!</string>
+    <string name="retry">Retry</string>
+    <string name="error_popular">An error occurred while loading movies</string>
+    <string name="error_details">An error occurred to obtain movie details </string>
+    <string name="search">Find a movie</string>
+    <string name="error_search">Error to find movies</string>
+    <string name="no_movies_found">No movies found</string>
+    <string name="similar_movies">Similar movies</string>
+    <string name="size_movies_watchlist">Movies in watchlist:</string>
+</resources>
