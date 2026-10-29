@@ -8,12 +8,19 @@
     <string name="no_movies_watchlist">No hay peliculas en tu watchlist!</string>
     <string name="retry">Reintentar</string>
     <string name="error_popular">Ocurrio un error al obtener las peliculas</string>
-    <string name="error_details">Ocurrio un error al intentar obtener los detalles de la película </string>
+    <string name="no_movie_details">Ocurrio un error al intentar obtener los detalles de la película </string>
     <string name="search">Buscar pelicula</string>
     <string name="error_search">Error al buscar pelicula</string>
     <string name="no_movies_found">No se encontraron peliculas</string>
     <string name="similar_movies">Peliculas similares</string>
     <string name="size_movies_watchlist">Peliculas en watchlist:</string>
-
-
+    <string name="watch_trailer">Ver trailer</string>
+    <string name="profile">Ir al perfil</string>
+    <string name="description_search">Buscar</string>
+    <string name="back">Volver</string>
+    <string name="save">Guardar</string>
+    <string name="play">Ver</string>
+    <string name="profile_picture">Foto de perfil</string>
+    <string name="not_available">N/A</string>
+    <string name="user">"Maestro"</string>
 </resources>

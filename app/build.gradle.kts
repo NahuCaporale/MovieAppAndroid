@@ -13,7 +13,9 @@ val localProps = Properties().apply {
     val file = rootProject.file("local.properties")
     if (file.exists()) file.inputStream().use { load(it) }
 }
-
+//token para la prueba del proyecto
+val fallbackToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYzY0MTlmMmUzZjg3OTY1ZWU0MTk0MmNiNWQ3NGNkZCIsIm5iZiI6MTc5MTM5NjE4NC41MjQ5OTk5LCJzdWIiOiI2YWM2ODk1OGNjYTc4ODFlMGUwM2UwYTciLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.lAj1mHgv7U72RS6ftF9KAocOkwEXDS_9ZMIHuHGKpow"
 val versionMajor = 1
 val versionMinor = 0
 val versionPatch = 0
@@ -30,7 +32,8 @@ android {
         versionName = "$versionMajor.$versionMinor.$versionPatch"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "TMDB_TOKEN", "\"${localProps.getProperty("TMDB_TOKEN", "")}\"")
+        val tmdbToken = localProps.getProperty("TMDB_TOKEN", fallbackToken)
+        buildConfigField("String", "TMDB_TOKEN", "\"$tmdbToken\"")
     }
     flavorDimensions += "minification"
     productFlavors {
@@ -42,7 +45,7 @@ android {
                 "String",
                 "BASE_URL",
                 "\"https://api.themoviedb.org/3/\""
-            ) // completar con api
+            )
         }
         create("minified") {
             applicationIdSuffix = ".production"
@@ -52,7 +55,7 @@ android {
                 "String",
                 "BASE_URL",
                 "\"https://api.themoviedb.org/3/\""
-            ) // completar con api
+            )
         }
     }
     buildTypes {

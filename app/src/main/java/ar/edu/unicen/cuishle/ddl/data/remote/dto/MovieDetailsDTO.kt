@@ -12,10 +12,20 @@ data class MovieDetailsDTO(
     @SerializedName("homepage") val homepage: String?,
     @SerializedName("genres") val genres: List<GenreDTO>,
     @SerializedName("backdrop_path") val backdropUrl: String?,
-    @SerializedName("runtime") val runtime: Int
+    @SerializedName("runtime") val runtime: Int,
+    @SerializedName("videos") val videos: VideosResponseDTO? // la api de tmdb devuelve una lista de videos
 )
 
 data class GenreDTO(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
+)
+data class VideosResponseDTO(
+    @SerializedName("results") val videos: List<VideoDTO>
+)
+
+data class VideoDTO(
+    @SerializedName("key") val key: String,
+    @SerializedName("site") val site: String,
+    @SerializedName("type") val type: String
 )

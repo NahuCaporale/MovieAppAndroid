@@ -1,9 +1,13 @@
 package ar.edu.unicen.cuishle.ui.details
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,8 +28,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.material.icons.outlined.StarBorder
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -39,8 +46,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -53,7 +62,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import java.util.Locale
 
-@OptIn(ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalGlideComposeApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun MovieDetailsScreen(
     modifier: Modifier = Modifier,
@@ -66,7 +75,7 @@ fun MovieDetailsScreen(
     val loading by viewModel.isLoading.collectAsStateWithLifecycle()
     val error by viewModel.error.collectAsStateWithLifecycle()
     val similarMovies by viewModel.similarMovie.collectAsStateWithLifecycle()
-
+    val context = LocalContext.current
     Column(
         modifier = modifier.fillMaxSize()
     ) {
@@ -81,7 +90,7 @@ fun MovieDetailsScreen(
                 CircularProgressIndicator()
             }
         } else if (error) {
-            MessageError(stringResource(R.string.error_details), onRetry = viewModel::retry)
+            MessageError(stringResource(R.string.no_movie_details), onRetry = viewModel::retry)
         } else {
             details?.let { movie ->
                 Column(
@@ -131,7 +140,7 @@ fun MovieDetailsScreen(
                             Box(contentAlignment = Alignment.Center) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = "Volver",
+                                    contentDescription = stringResource(R.string.back),
                                     tint = Color.Black,
                                     modifier = Modifier.size(20.dp)
                                 )
@@ -140,7 +149,13 @@ fun MovieDetailsScreen(
 
                         // a watchlist
                         Surface(
-                            onClick = { details?.let { movieItem -> viewModel.toggleWatchlist(movieItem) } },
+                            onClick = {
+                                details?.let { movieItem ->
+                                    viewModel.toggleWatchlist(
+                                        movieItem
+                                    )
+                                }
+                            },
                             shape = CircleShape,
                             color = Color.White.copy(alpha = 0.85f),
                             modifier = Modifier
@@ -151,7 +166,7 @@ fun MovieDetailsScreen(
                             Box(contentAlignment = Alignment.Center) {
                                 Icon(
                                     imageVector = if (isFavorite) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
-                                    contentDescription = "Guardar",
+                                    contentDescription = stringResource(R.string.save),
                                     tint = if (isFavorite) MaterialTheme.colorScheme.primary else Color.Black,
                                     modifier = Modifier.size(20.dp)
                                 )
@@ -173,7 +188,8 @@ fun MovieDetailsScreen(
                                 Spacer(modifier = Modifier.height(8.dp))
 
                                 Text(
-                                    text = movie.releaseDate?.substringBefore("-") ?: "N/A",
+                                    text = movie.releaseDate?.substringBefore("-")
+                                        ?: stringResource(R.string.not_available),
                                     style = MaterialTheme.typography.titleSmall,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -198,14 +214,15 @@ fun MovieDetailsScreen(
                                     Text(
                                         text = " / 10",
                                         style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.onBackground
+                                        color = MaterialTheme.colorScheme.secondary
                                     )
                                 }
 
                                 if (movie.genres.isNotEmpty()) {
                                     Spacer(modifier = Modifier.height(12.dp))
-                                    Row(
-                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                    FlowRow(
+                                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                                        verticalArrangement = Arrangement.spacedBy(4.dp)
                                     ) {
                                         movie.genres.forEach { genre ->
                                             Box(
@@ -216,7 +233,7 @@ fun MovieDetailsScreen(
                                             ) {
                                                 Text(
                                                     text = genre,
-                                                    color = MaterialTheme.colorScheme.onSurface,
+                                                    color = MaterialTheme.colorScheme.onTertiary,
                                                     style = MaterialTheme.typography.labelMedium,
                                                     fontWeight = FontWeight.SemiBold
                                                 )
@@ -226,13 +243,52 @@ fun MovieDetailsScreen(
                                 }
 
                                 Spacer(modifier = Modifier.height(12.dp))
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    if (!movie.video.isNullOrBlank()) {
+                                        Button(
+                                            modifier = Modifier.height(32.dp),
 
-                                Text(
-                                    text = "${movie.runtime}min",
-                                    style = MaterialTheme.typography.titleSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                            contentPadding = PaddingValues(
+                                                horizontal = 16.dp,
+                                                vertical = 0.dp
+                                            ),
+                                            onClick = {
+                                                val uri =
+                                                    Uri.parse("https://www.youtube.com/watch?v=${movie.video}")
+                                                context.startActivity(
+                                                    Intent(
+                                                        Intent.ACTION_VIEW,
+                                                        uri
+                                                    )
+                                                )
+
+                                            },
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.PlayArrow,
+                                                contentDescription = stringResource(R.string.play),
+                                                modifier = Modifier.size(16.dp)
+
+
+                                            )
+                                            Spacer(modifier = Modifier.width(6.dp))
+
+                                            Text(
+                                                text = stringResource(R.string.watch_trailer),
+                                            )
+                                        }
+
+                                    }
+                                    Text(
+                                        text = "${movie.runtime} mins",
+                                        style = MaterialTheme.typography.titleSmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
                             }
 
                             GlideImage(
@@ -252,7 +308,7 @@ fun MovieDetailsScreen(
                             Text(
                                 text = overview,
                                 style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 lineHeight = 18.sp
                             )
                         }
@@ -261,6 +317,7 @@ fun MovieDetailsScreen(
                             Text(
                                 text = stringResource(R.string.similar_movies),
                                 style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.padding(top = 16.dp)
                             )
                             LazyRow(

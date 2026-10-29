@@ -35,13 +35,14 @@ fun CuishleHeader(modifier: Modifier = Modifier, onProfileClick: () -> Unit) {
         Text(
             text = stringResource(R.string.app_name),
             style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary
 
         )
         IconButton(onClick = onProfileClick) {
             Icon(
                 imageVector = Icons.Default.Person,
-                contentDescription = "Perfil"
+                contentDescription = stringResource(R.string.profile),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
 

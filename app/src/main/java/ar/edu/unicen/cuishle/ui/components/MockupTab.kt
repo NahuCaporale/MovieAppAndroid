@@ -29,8 +29,8 @@ import androidx.compose.ui.unit.dp
 /**
  * Componente de pestaña personalizado diseñado según los requerimientos estéticos del mockup.
  *
- * Creado con asistencia de IA para adaptar el estilo visual y las proporciones
- * que habia diseñado en un mockup. el diseño que proporcionaba el componente de google no me gustaba.
+ * Creado con IA para adaptar el estilo visual y las proporciones
+ * que habia diseñado en el mockup previamente. el diseño que proporcionaba el componente de google no me gustaba.
  */
 
 @Composable
@@ -41,7 +41,7 @@ fun MockupTab(
     onClick: () -> Unit,
 ) {
     val color = if (selected) {
-        MaterialTheme.colorScheme.onBackground
+        MaterialTheme.colorScheme.primary
     } else {
         MaterialTheme.colorScheme.onSurfaceVariant
     }

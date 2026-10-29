@@ -7,10 +7,19 @@
     <string name="no_movies_watchlist">No movies in watchlist!</string>
     <string name="retry">Retry</string>
     <string name="error_popular">An error occurred while loading movies</string>
-    <string name="error_details">An error occurred to obtain movie details </string>
+    <string name="no_movie_details">An error occurred to obtain movie details </string>
     <string name="search">Find a movie</string>
     <string name="error_search">Error to find movies</string>
     <string name="no_movies_found">No movies found</string>
     <string name="similar_movies">Similar movies</string>
     <string name="size_movies_watchlist">Movies in watchlist:</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="profile">Go to profile</string>
+    <string name="description_search">Search</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="play">Play</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="not_available">N/A</string>
+    <string name="user">"Maestro"</string>
 </resources>

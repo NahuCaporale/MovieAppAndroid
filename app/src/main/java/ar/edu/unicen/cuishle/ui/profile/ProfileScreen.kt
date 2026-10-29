@@ -61,7 +61,7 @@ fun ProfileScreen(
 
             Image(
                 painter = androidx.compose.ui.res.painterResource(id = R.drawable.profile),
-                contentDescription = "Foto de perfil",
+                contentDescription = stringResource(R.string.profile_picture),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(120.dp)
@@ -71,7 +71,7 @@ fun ProfileScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Maestro",
+                text = stringResource(R.string.user),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface

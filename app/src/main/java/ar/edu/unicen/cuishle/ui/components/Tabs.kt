@@ -59,7 +59,7 @@ fun CuishleTabs(
             IconButton(onClick = onSearchClick) {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = "Buscar",
+                    contentDescription = stringResource(R.string.description_search),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }

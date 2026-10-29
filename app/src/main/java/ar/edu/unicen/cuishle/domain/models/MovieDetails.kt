@@ -11,5 +11,6 @@ data class MovieDetails(
     val homepage: String?,
     val backdropUrl: String?,
     val runtime : String,
+    val video: String?,
 ) {
 }

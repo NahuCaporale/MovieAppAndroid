@@ -12,15 +12,15 @@ interface MovieApi {
     @GET("movie/popular")
     suspend fun getPopularMovies(
         @Query("page") page: Int = 1,
-
-        ): Response<MovieResponseDTO>
+    ): Response<MovieResponseDTO>
 
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id")
         movieId: Int,
+        @Query("append_to_response") appendToResponse: String = "videos",
 
-        ): Response<MovieDetailsDTO>
+    ): Response<MovieDetailsDTO>
 
     @GET("search/movie")
     suspend fun getMovieBySearch(
